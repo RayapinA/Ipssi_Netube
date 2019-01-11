@@ -42,9 +42,14 @@ class Video
     private $nbViews;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $published;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime('@'.strtotime('now'));
+    }
 
     public function getId(): ?int
     {

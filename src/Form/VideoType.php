@@ -6,6 +6,7 @@ use App\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class VideoType extends AbstractType
 {
@@ -15,9 +16,8 @@ class VideoType extends AbstractType
             ->add('title')
             ->add('url')
             ->add('description')
-            ->add('createdAt')
-            ->add('nbViews')
             ->add('published')
+            ->add('submit',SubmitType::class) // Add a submit button
         ;
     }
 
@@ -25,6 +25,7 @@ class VideoType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Video::class,
+            'allow_extra_fields' => true,
         ]);
     }
 }
