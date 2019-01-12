@@ -14,14 +14,9 @@
     <ul>
         {% for video in videoList %}
             <li>
-                {{video.id}}  - {{video.title}}  <a href="{{ path("add_video") }}"> ADD </a>
+                {{video.id}}  - {{video.title}}  <a href="{{ path("videoById",{'id':video.id}) }}"> ADD </a>
             </li>
         {% endfor %}
     </ul>
-
-{#
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }} #}
 </div>
 {% endblock %}
