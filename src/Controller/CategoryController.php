@@ -16,10 +16,11 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category", name="category")
      */
-    public function index()
+    public function index(CategoryManager $categoryManager)
     {
+
         return $this->render('category/index.html.twig', [
-            'categoryList'
+            'categoryList' => $categoryManager->getCategoryList(),
         ]);
     }
 
