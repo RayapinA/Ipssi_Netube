@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if not error is empty %}
+        <span> La combinaison Email-Password n'est pas correcte </span>
+    {% endif %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
+{% endblock %}
