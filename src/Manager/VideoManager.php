@@ -21,6 +21,9 @@ class VideoManager
     public function getVideoList(){
         return $this->videoRepository->findAll();
     }
+    public function getVideoListPublished(){
+        return $this->videoRepository->FindBy(['published' => 1]);
+    }
 
     public function save(Video $video)
     {

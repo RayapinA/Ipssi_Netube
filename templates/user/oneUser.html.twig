@@ -3,31 +3,17 @@
 {% block title %}Hello ArticleController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
     <div class="example-wrapper">
         <h2> Les informations de {{ user.firstname }} {{user.lastname}}  </h2>
         <ul>
+
             <li> Prénom : {{user.firstname}} </li>
             <li> Nom:  {{user.lastname}} </li>
             <li> Email: {{user.email}} </li>
             <li> Date aniversaire: {{user.birthday | date}} </li>
-            <ul> <b><u> Sa Liste d'article: </u></b>
 
-                {% for article in user.articles %}
-                    <li>
-                        <a href="{{ path("articleBy",{'id':article.id})}}" > {{article.id}}  - {{article.name}}  -  {{article.createdAt|date}} </a>
-                    </li>
-                {% endfor %}
-            </ul>
         </ul>
-        <hr />
-        {# {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }} #}
 
     </div>
 {% endblock %}
