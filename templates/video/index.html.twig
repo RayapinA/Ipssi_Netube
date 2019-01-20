@@ -10,11 +10,11 @@
 
 <div class="example-wrapper">
     <h1> Liste des vidéos </h1>
-
+    <a href="{{ path("add_video") }}"> <button> Add new video </button>  </a>
     <ul>
         {% for video in videoList %}
             <li>
-                {{video.id}}  - {{video.title}}  <a href="{{ path("videoById",{'id':video.id}) }}"> ADD </a>
+                {{video.id}}  - {{video.title}}  <a href="{{ path("videoById",{'id':video.id}) }}"> Show </a>
             </li>
         {% endfor %}
     </ul>

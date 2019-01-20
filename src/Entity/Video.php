@@ -53,15 +53,9 @@ class Video
      */
     private $published;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="videos")
-     */
-    private $categories;
-
     public function __construct()
     {
         $this->createdAt = new \DateTime('@'.strtotime('now'));
-        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,34 +131,6 @@ class Video
     public function setPublished(bool $published): self
     {
         $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addVideo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-            $category->removeVideo($this);
-        }
 
         return $this;
     }

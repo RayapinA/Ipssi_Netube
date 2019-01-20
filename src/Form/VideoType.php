@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+
 use App\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +17,8 @@ class VideoType extends AbstractType
             ->add('title')
             ->add('url')
             ->add('description')
-            ->add('category')
             ->add('published')
+
             ->add('submit',SubmitType::class) // Add a submit button
         ;
     }
