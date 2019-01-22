@@ -30,6 +30,11 @@ class Category
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="category")
+     */
+    private $videos;
+
     public function __construct()
     {
         $this->videos = new ArrayCollection();
@@ -60,6 +65,37 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getCategory() === $this) {
+                $video->setCategory(null);
+            }
+        }
 
         return $this;
     }

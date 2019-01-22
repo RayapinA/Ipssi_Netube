@@ -21,6 +21,10 @@ class CategoryManager
         return $this->categoryRepository->findAll();
     }
 
+    public function getVideoListOfCategory(){
+        return $this->categoryRepository->findAll();
+    }
+
     public function save(Category $category)
     {
         $this->categoryDoctrine->persist($category);

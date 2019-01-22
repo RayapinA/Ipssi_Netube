@@ -53,6 +53,11 @@ class Video
      */
     private $published;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="videos")
+     */
+    private $category;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('@'.strtotime('now'));
@@ -131,6 +136,18 @@ class Video
     public function setPublished(bool $published): self
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

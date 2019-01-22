@@ -15,6 +15,15 @@
         {% for category in categoryList %}
             <li>
                 {{category.id}}  - {{category.name}}  <a href="{{ path("categoryById",{'id':category.id}) }}"> Show </a>
+
+                <ul>
+                    {% for video in category.videos %}
+                        <li>
+                            {{video.id}}  - {{video.title}}
+                        </li>
+                    {% endfor %}
+
+                </ul>
             </li>
         {% endfor %}
     </ul>
