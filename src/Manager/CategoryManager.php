@@ -22,7 +22,18 @@ class CategoryManager
     }
 
     public function getVideoListOfCategory(){
-        return $this->categoryRepository->findAll();
+        $list = array();
+        $categories = $this->categoryRepository->findAll();
+
+        foreach( $categories as $key => $category){
+
+            if(isset($list[$key]))
+                $list[$category->getName()] = array();
+
+            $list[$category->getName()] = $category->getVideos()->getValues();
+        }
+
+        return $list;
     }
 
     public function save(Category $category)

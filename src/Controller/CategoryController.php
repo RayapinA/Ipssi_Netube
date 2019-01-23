@@ -18,6 +18,8 @@ class CategoryController extends AbstractController
      */
     public function index(CategoryManager $categoryManager)
     {
+        $videoOfThisCategory = $categoryManager->getVideoListOfCategory();
+        dump($videoOfThisCategory);
 
         return $this->render('category/index.html.twig', [
             'categoryList' => $categoryManager->getCategoryList(),
