@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Manager\CategoryManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/add", name="add_category")
      */
-    public function add(Request $request, CategoryManager $categoryManager)
+    public function add(Request $request, CategoryManager $categoryManager, LoggerInterface $logger)
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class,$category);
@@ -40,6 +41,8 @@ class CategoryController extends AbstractController
                 'notice',
                 'Video Added'
             );
+
+            $logger->info('Category Added. idCategory = '.$category->getId().' title = '.$category->getTitle());
         }
 
         return $this->render('category/add_category.html.twig', [
@@ -69,13 +72,15 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/edit/{id}", name="editCategoryById")
      */
-    public function editVideoById(Request $request, CategoryManager $categoryManager, Category $category)
+    public function editVideoById(Request $request, CategoryManager $categoryManager, Category $category,LoggerInterface $logger)
     {
         $form = $this->createForm(CategoryType::class,$category);
         $form->handleRequest($request);
 
         if($form->isSubmitted() &&  $form->isValid()){
             $categoryManager->save($category);
+
+            $logger->info('Category Added. idCategory = '.$category->getId().' title = '.$category->getTitle());
         }
 
         return $this->render('category/editCategory.html.twig', [

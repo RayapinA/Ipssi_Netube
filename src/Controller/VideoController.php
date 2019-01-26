@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Video;
 use App\Form\VideoType;
 use App\Manager\VideoManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class VideoController extends AbstractController
     /**
      * @Route("/video/add", name="add_video")
      */
-    public function add(Request $request, VideoManager $videoManager)
+    public function add(Request $request, VideoManager $videoManager, LoggerInterface $logger)
     {
         $video = new Video();
         $form = $this->createForm(VideoType::class,$video);
@@ -37,6 +38,8 @@ class VideoController extends AbstractController
                 'notice',
                 'Video Added'
             );
+
+            $logger->info('Video Added. idVideo = '.$video->getId().' title = '.$video->getTitle());
         }
 
         return $this->render('video/add_video.html.twig', [
@@ -64,7 +67,7 @@ class VideoController extends AbstractController
     /**
      * @Route("/video/edit/{id}", name="editVideo")
      */
-    public function editVideo(Request $request, VideoManager $videoManager,Video $video)
+    public function editVideo(Request $request, VideoManager $videoManager,Video $video,  LoggerInterface $logger)
     {
 
         $form = $this->createForm(VideoType::class,$video);
@@ -77,6 +80,8 @@ class VideoController extends AbstractController
                 'notice',
                 'Video Edited'
             );
+
+            $logger->info('Video Edited. idVideo = '.$video->getId().' title = '.$video->getTitle());
         }
 
         return $this->render('video/editVideo.html.twig', [

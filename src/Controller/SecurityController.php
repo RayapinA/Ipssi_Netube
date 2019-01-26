@@ -40,7 +40,7 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $logger->info('User registered now !!! ');
+            $logger->info('User registered !!! ');
 
             return $this->redirectToRoute('home');
         }
@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
         if(!empty($authenticationUtils->getLastAuthenticationError())){
             $this->addFlash(
                 'notice',
-                'aaa'
+                'Connected'
             );
         }
 
@@ -79,4 +79,6 @@ class SecurityController extends AbstractController
     {
         return $this->render('security/profile.html.twig');
     }
+
+
 }
