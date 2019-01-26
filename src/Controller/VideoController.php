@@ -32,6 +32,11 @@ class VideoController extends AbstractController
 
         if($form->isSubmitted() &&  $form->isValid()){
             $videoManager->save($video);
+
+            $this->addFlash(
+                'notice',
+                'Video Added'
+            );
         }
 
         return $this->render('video/add_video.html.twig', [
@@ -52,6 +57,30 @@ class VideoController extends AbstractController
         }
 
         return $this->render('video/show_video.html.twig', [
+            "video" => $video
+        ]);
+    }
+
+    /**
+     * @Route("/video/edit/{id}", name="editVideo")
+     */
+    public function editVideo(Request $request, VideoManager $videoManager,Video $video)
+    {
+
+        $form = $this->createForm(VideoType::class,$video);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() &&  $form->isValid()){
+            $videoManager->save($video);
+
+            $this->addFlash(
+                'notice',
+                'Video Edited'
+            );
+        }
+
+        return $this->render('video/editVideo.html.twig', [
+            'form' => $form->createView(),
             "video" => $video
         ]);
     }

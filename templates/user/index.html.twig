@@ -10,7 +10,11 @@
         <ul>
             {% for user in users %}
                 <li>
-                    {{user.id}}  - {{user.firstname}}  -  {{user.lastname}} - {{user.email}} - {{user.birthday|date}}
+                    {{user.id}}  - {{user.firstname}}  -  {{user.lastname}}
+
+                    <a class="backEndAction" href="{{ path("userby",{'firstname':user.firstname}) }}"> Show </a>
+
+                    <a class="backEndAction" href="{{ path("editUserBy",{'firstname':user.firstname}) }}"> Edit </a>
                 </li>
             {% endfor %}
         </ul>

@@ -2,14 +2,32 @@
 
 {% block body %}
 
+    <div class="example-wrapper">
+    <h1> Login </h1>
+
     {% if not error is empty %}
         <span> La combinaison Email-Password n'est pas correcte </span>
     {% endif %}
 
+
     {{ form_start(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.submit) }}
+    {{ form_errors(form) }}
+    <div id="formDesign">
+        <div>
+            {{ form_label(form.email, 'Email : ') }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, {'attr': {'class': 'inputField'}}) }}
+            {{ form_help(form.email) }}
+        </div>
+
+        <div>
+            {{ form_label(form.password, 'Password : ') }}
+            {{ form_errors(form.password) }}
+            {{ form_widget(form.password, {'attr': {'class': 'inputField'}}) }}
+        </div>
+
+        {{ form_widget(form.submit, {'attr': {'class': 'boutonSubmit'}}) }}
+    </div>
     {{ form_end(form) }}
 
 {% endblock %}

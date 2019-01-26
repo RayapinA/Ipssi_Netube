@@ -58,6 +58,13 @@ class SecurityController extends AbstractController
 
         $user = new User();
         $form = $this->createForm(LoginUserType::class,$user);
+        if(!empty($authenticationUtils->getLastAuthenticationError())){
+            $this->addFlash(
+                'notice',
+                'aaa'
+            );
+        }
+
 
         return $this->render('security/login.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -50,10 +51,16 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="user")
+     */
+    private $videos;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->roles = array("ROLE_USER");
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,5 +152,36 @@ class User implements UserInterface
     public function eraseCredentials():void
     {
 
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getUser() === $this) {
+                $video->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

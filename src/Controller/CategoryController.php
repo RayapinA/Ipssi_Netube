@@ -19,7 +19,6 @@ class CategoryController extends AbstractController
     public function index(CategoryManager $categoryManager)
     {
         $videoOfThisCategory = $categoryManager->getVideoListOfCategory();
-        dump($videoOfThisCategory);
 
         return $this->render('category/index.html.twig', [
             'categoryList' => $categoryManager->getCategoryList(),
@@ -37,6 +36,10 @@ class CategoryController extends AbstractController
 
         if($form->isSubmitted() &&  $form->isValid()){
             $categoryManager->save($category);
+            $this->addFlash(
+                'notice',
+                'Video Added'
+            );
         }
 
         return $this->render('category/add_category.html.twig', [
@@ -57,6 +60,25 @@ class CategoryController extends AbstractController
         }
 
         return $this->render('category/show_category.html.twig', [
+            'form' => $form->createView(),
+            "category" => $category
+        ]);
+    }
+
+
+    /**
+     * @Route("/category/edit/{id}", name="editCategoryById")
+     */
+    public function editVideoById(Request $request, CategoryManager $categoryManager, Category $category)
+    {
+        $form = $this->createForm(CategoryType::class,$category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() &&  $form->isValid()){
+            $categoryManager->save($category);
+        }
+
+        return $this->render('category/editCategory.html.twig', [
             'form' => $form->createView(),
             "category" => $category
         ]);

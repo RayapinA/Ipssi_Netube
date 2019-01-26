@@ -26,12 +26,43 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{firstname}", name="userby")
      */
-    public function indexById(Request $request, User $user)
+    public function indexById(Request $request, User $user,UserManager $userManager)
     {
+
         $form = $this->createForm(UserType::class,$user);
         $form->handleRequest($request);
 
+        if($form->isSubmitted() &&  $form->isValid()){
+            $userManager->save($user);
+        }
+
         return $this->render('user/oneUser.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+
+    /**
+     * @Route("/user/edit/{firstname}", name="editUserBy")
+     */
+    public function EditById(Request $request, User $user,UserManager $userManager)
+    {
+
+        $form = $this->createForm(UserType::class,$user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() &&  $form->isValid()){
+            $userManager->save($user);
+
+            $this->addFlash(
+                'notice',
+                'Video Edited'
+            );
+        }
+
+        return $this->render('user/editUser.html.twig', [
+
+            'form' => $form->createView(),
             'user' => $user,
         ]);
     }

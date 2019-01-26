@@ -18,11 +18,27 @@ class VideoManager
         $this->videoRepository = $videoRepository;
     }
 
-    public function getVideoList(){
+    public function getVideoList()
+    {
         return $this->videoRepository->findAll();
     }
-    public function getVideoListPublished(){
+    public function getVideoListPublished()
+    {
         return $this->videoRepository->FindBy(['published' => 1]);
+    }
+
+    public function getVideosByUser($id)
+    {
+        $nbVideo = 0;
+
+        $videos = $this->videoRepository->findAll();
+        foreach($videos as $video){
+            if($video->getUser()->getId() == $id) {
+                $nbVideo++;
+            }
+        }
+
+        return $nbVideo;
     }
 
     public function save(Video $video)

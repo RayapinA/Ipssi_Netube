@@ -11,7 +11,7 @@
     </style>
 
     <div class="example-wrapper">
-        <h1> Add new video </h1>
+        <h1> {{ video.title }} </h1>
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -49,6 +49,6 @@
             </div>
             {{ form_widget(form.submit, {'attr': {'class': 'boutonSubmit'}}) }}
         </div>
-            {{ form_end(form) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}

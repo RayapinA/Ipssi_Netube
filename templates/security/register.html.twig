@@ -1,16 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="example-wrapper">
+        <h1> Registrer Page </h1>
+
     {{ form_start(form) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.birthday) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
-    {{ form_row(form.submit) }}
+    {{ form_errors(form) }}
+    <div id="formDesign">
+        <div>
+            {{ form_label(form.firstname, 'Firstname : ') }}
+            {{ form_errors(form.firstname) }}
+            {{ form_widget(form.firstname, {'attr': {'class': 'inputField'}}) }}
+            {{ form_help(form.firstname) }}
+        </div>
+
+        <div>
+            {{ form_label(form.lastname, 'Lastname : ') }}
+            {{ form_errors(form.lastname) }}
+            {{ form_widget(form.lastname, {'attr': {'class': 'inputField'}}) }}
+            {{ form_help(form.lastname) }}
+        </div>
+
+        <div>
+            {{ form_label(form.email, 'Email : ') }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, {'attr': {'class': 'inputField'}}) }}
+            {{ form_help(form.email) }}
+        </div>
+
+        <div>
+            {{ form_label(form.birthday, 'Birthday : ') }}
+            {{ form_errors(form.birthday) }}
+            {{ form_widget(form.birthday, {'attr': {'class': 'inputField'}}) }}
+            {{ form_help(form.birthday) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.password, {'attr': {'class': 'inputField'}}) }}
+        </div>
+
+        {{ form_widget(form.submit, {'attr': {'class': 'boutonSubmit'}}) }}
+    </div>
     {{ form_end(form) }}
+    </div>
 
-
-
+</div>
 {% endblock %}

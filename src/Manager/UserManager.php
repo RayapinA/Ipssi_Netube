@@ -20,6 +20,18 @@ class UserManager extends AbstractController
         return $this->userRepository->findAll();
     }
 
+    public function getIdByEmail($email)
+    {
+        $user =$this->userRepository->findOneBy(['email' => $email]);
+        if($user == null){
+            return false;
+        }else{
+            return $user->getId();
+        }
+        exit();
+
+    }
+
     public function connect()
     {
         return $this->getDoctrine()->getManager();
