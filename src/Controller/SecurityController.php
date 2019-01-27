@@ -33,6 +33,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() &&  $form->isValid()){
+
             $password = $passwordEncoder->encodePassword($user,$user->getPassword());
             $user->setPassword($password);
 
@@ -40,7 +41,7 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $logger->info('User registered !!! ');
+            $logger->info(' New User registered  in Netube!!! ');
 
             return $this->redirectToRoute('home');
         }
@@ -57,7 +58,9 @@ class SecurityController extends AbstractController
     {
 
         $user = new User();
+
         $form = $this->createForm(LoginUserType::class,$user);
+
         if(!empty($authenticationUtils->getLastAuthenticationError())){
             $this->addFlash(
                 'notice',

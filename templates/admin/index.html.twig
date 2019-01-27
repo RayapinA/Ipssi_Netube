@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page Admin{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <div class="listAdmin">
+        <a href="{{ path("user") }}"> <span class="title" > List of User </span></a>
+
+        <div class="listContent">
+            <table>
+                <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Firstname </th>
+                    <th> LastName</th>
+                    <th> Birthday</th>
+                    <th> Email</th>
+                    <th> Roles </th>
+                    <th> Role </th>
+                    <th> Action</th>
+                    <th> Action </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.birthday | date("m/d/Y") }}</td>
+                        <td> user.email</td>
+                        {% for role in user.roles %}
+                            <td> {{ role }}  </td>
+                        {% endfor %}
+                        <td>
+                            <a class="backEndAction" href="{{ path("userby",{'firstname':user.firstname}) }}"> Show </a>
+                        </td>
+                        <td><a class="backEndAction" href="{{ path("editUserBy",{'firstname':user.firstname}) }}"> Edit </a> </td>
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="listAdmin">
+        <a href="{{ path("category")}}"><span class="title" > List of Category </span></a>
+
+        <div class="listContent">
+            <table>
+                <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Name</th>
+                        <th> Action</th>
+                        <th> Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{category.id}}</td>
+                    <td>{{category.name}}</td>
+                    <td><a href="{{ path("categoryById",{'id':category.id}) }}"> Show </a></td>
+                    <td> <a href="{{ path("editCategoryById",{'id':category.id}) }}"> Edit </a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="listAdmin">
+        <a href="{{ path("video")}}"><span class="title" > List of Videos </span></a>
+
+        <div class="listContent">
+            <table>
+                <thead>
+                <tr>
+                    <th> ID</th>
+                    <th> Title</th>
+                    <th> By </th>
+                    <th> Created At </th>
+                    <th> Category </th>
+                    <th> Published </th>
+                    <th> Action </th>
+                    <th> Action </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for video in videos %}
+                    <tr>
+                        <td>{{video.id}}</td>
+                        <td>{{video.title}}</td>
+                        <td>{{ video.user.firstname }}</td>
+                        <td>{{ video.createdAt | date("m/d/Y") }} </td>
+                        <td>{{video.category.name}}</td>
+                        <td>
+                            {% if video.published == false %}
+                                No
+                            {% else %}
+                                Yes
+                            {% endif %}
+                        </td>
+
+
+                        <td><a href="{{ path("videoById",{'id':video.id}) }}"> Show </a></td>
+                        <td><a href="{{ path("editVideo",{'id':video.id}) }}"> Edit </a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

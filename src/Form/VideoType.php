@@ -24,7 +24,7 @@ class VideoType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('published')
-            ->add('submit',SubmitType::class) // Add a submit button
+            ->add('submit',SubmitType::class)
         ;
     }
 

@@ -18,7 +18,7 @@ class UserType extends AbstractType
             ->add('lastname')
             ->add('birthday',DateType::class)
             ->add('email')
-            ->add('submit',SubmitType::class) // Add a submit button
+            ->add('submit',SubmitType::class)
         ;
     }
 

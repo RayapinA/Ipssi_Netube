@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
-
+{% block title %}Page Profile {% endblock %}
 {% block body %}
+
     <ul>
         <li> {{app.user.firstname}} </li>
         <li> {{app.user.lastname}} </li>

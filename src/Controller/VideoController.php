@@ -18,6 +18,7 @@ class VideoController extends AbstractController
     public function index(Request $request, VideoManager $videoManager)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+
         return $this->render('video/index.html.twig', [
             'videoList' =>  $videoManager->getVideoList(),
         ]);
@@ -31,7 +32,9 @@ class VideoController extends AbstractController
 
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $video = new Video();
+
         $form = $this->createForm(VideoType::class,$video);
         $form->handleRequest($request);
 
@@ -47,7 +50,7 @@ class VideoController extends AbstractController
                 'Video Added'
             );
 
-            $logger->info('Video Added. idVideo = '.$video->getId().' title = '.$video->getTitle());
+            $logger->info('Video Added. idVideo = '.$video->getId().' title = '.$video->getTitle().' by idUser : '.$this->getUser()->getId()." email : ".$this->getUser()->getEmail() );
 
             $this->redirectToRoute('profile');
         }
@@ -60,14 +63,8 @@ class VideoController extends AbstractController
     /**
      * @Route("/video/show/{id}", name="videoById")
      */
-    public function videoById(Request $request, VideoManager $videoManager, Video $video)
+    public function videoById(Video $video)
     {
-        $form = $this->createForm(VideoType::class,$video);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() &&  $form->isValid()){
-            $videoManager->save($video);
-        }
 
         return $this->render('video/show_video.html.twig', [
             "video" => $video

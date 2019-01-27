@@ -28,7 +28,6 @@ class UserManager extends AbstractController
         }else{
             return $user->getId();
         }
-        exit();
 
     }
 

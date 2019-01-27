@@ -14,6 +14,7 @@ class HomeController extends AbstractController
     public function index(VideoManager $videoManager)
     {
         $videos = $videoManager->getVideoListPublished();
+
         return $this->render('home/index.html.twig', [
             'videos' => $videos
         ]);

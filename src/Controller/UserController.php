@@ -17,6 +17,7 @@ class UserController extends AbstractController
     public function index(UserManager $userManager)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+
         $users = $userManager->getAllUser();
 
         return $this->render('user/index.html.twig', [
@@ -54,12 +55,13 @@ class UserController extends AbstractController
         $currentUser = $this->getUser()->getEmail();
         $currentRoles = $this->getUser()->getRoles();
 
-//TODO BUG a COrriger
+        //TODO BUG a COrriger
         //if( ($emailUser != $currentUser) === False || in_array("ROLE_ADMIN",$currentRoles) === False) {
             //Echo " Vous pouvez pas faire cela";
             //return $this->redirectToRoute("home");
             //exit();
         //}
+
         $form = $this->createForm(UserType::class,$user);
         $form->handleRequest($request);
 

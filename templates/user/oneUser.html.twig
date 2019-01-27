@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}{{ user.firstname }} {{user.lastname}}{% endblock %}
 
 {% block body %}
 
@@ -11,19 +11,10 @@
             <li> Prénom : {{user.firstname}} </li>
             <li> Nom:  {{user.lastname}} </li>
             <li> Email: {{user.email}} </li>
-            <li> Date aniversaire: {{user.birthday | date}} </li>
+            <li> Date aniversaire: {{user.birthday | date("m/d/Y")}} </li>
 
         </ul>
 
-        <hr />
-
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
-
-        {% endif %}
 
     </div>
 {% endblock %}

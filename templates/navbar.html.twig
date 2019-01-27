@@ -6,7 +6,17 @@
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-            <li class="active"><a href="{{ path("profile")}}">Profile of {{ app.user.firstname }}</a></li>
+            <li class="active">
+                {% if is_granted('ROLE_ADMIN') %}
+
+                    <a href="{{ path("admin")}}">Profile of {{ app.user.firstname }}</a>
+
+                {% else %}
+
+                    <a href="{{ path("profile")}}">Profile of {{ app.user.firstname }}</a>
+
+                {% endif %}
+            </li>
             <li><a href="{{ path("add_video")}}"> New video </a></li>
             <li><a href="{{ path("logout")}}"> Logout </a></li>
 
