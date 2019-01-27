@@ -36,6 +36,9 @@ class VideoController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() &&  $form->isValid()){
+
+            $video->setUser($this->getUser());
+
             $videoManager->formateYoutubeUrl($video);
             $videoManager->save($video);
 
