@@ -47,6 +47,16 @@ class VideoManager
 
         return $nbVideo;
     }
+    public function formateYoutubeUrl(video $video){
+        $array_link = explode("/",$video->getUrl());
+
+        if(in_array("embed",$array_link) === false){
+            $array_element = explode("=",$array_link[3]);
+        }
+        $formatedLink = $array_link[0]."//".$array_link[2]."/embed/".$array_element[1];
+        $video->setUrl($formatedLink);
+
+    }
 
     public function getYoutubeIdVideo( Video $video){
         $array_link = explode("/",$video->getUrl());

@@ -36,6 +36,7 @@ class VideoController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() &&  $form->isValid()){
+            $videoManager->formateYoutubeUrl($video);
             $videoManager->save($video);
 
             $this->addFlash(
@@ -44,6 +45,8 @@ class VideoController extends AbstractController
             );
 
             $logger->info('Video Added. idVideo = '.$video->getId().' title = '.$video->getTitle());
+
+            $this->redirectToRoute('profile');
         }
 
         return $this->render('video/add_video.html.twig', [

@@ -21,6 +21,7 @@ class Video
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(min = 5)
      * @ORM\Column(type="string", length=255)
      */
     private $title;

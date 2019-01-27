@@ -17,7 +17,7 @@
         {{ form_errors(form) }}
         <div id="formDesign">
             <div>
-                {{ form_label(form.title, 'Title : ') }}
+                {{ form_label(form.title, 'Title (5 caract min) : ') }}
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title, {'attr': {'class': 'inputField'}}) }}
                 {{ form_help(form.title) }}
