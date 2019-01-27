@@ -16,6 +16,7 @@ class UserController extends AbstractController
      */
     public function index(UserManager $userManager)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $users = $userManager->getAllUser();
 
         return $this->render('user/index.html.twig', [

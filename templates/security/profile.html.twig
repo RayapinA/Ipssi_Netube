@@ -7,6 +7,12 @@
         <li> {{app.user.lastname}} </li>
         <li> {{app.user.email}} </li>
         <li> {{app.user.birthday | date}} </li>
+
+        {% for video in app.user.videos %}
+            <li>
+                {{video.id}}  - {{video.title}}  <a href="{{ path("videoById",{'id':video.id}) }}"> Show </a>  ----   <a href="{{ path("editVideo",{'id':video.id}) }}"> Edit </a>
+            </li>
+        {% endfor %}
     </ul>
 
 {% endblock %}

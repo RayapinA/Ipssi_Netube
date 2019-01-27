@@ -19,7 +19,10 @@ class CategoryController extends AbstractController
      */
     public function index(CategoryManager $categoryManager)
     {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $videoOfThisCategory = $categoryManager->getVideoListOfCategory();
+
 
         return $this->render('category/index.html.twig', [
             'categoryList' => $categoryManager->getCategoryList(),
@@ -31,7 +34,7 @@ class CategoryController extends AbstractController
      */
     public function add(Request $request, CategoryManager $categoryManager, LoggerInterface $logger)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $category = new Category();
         $form = $this->createForm(CategoryType::class,$category);
         $form->handleRequest($request);
@@ -73,7 +76,7 @@ class CategoryController extends AbstractController
      */
     public function editCategoryById(Request $request, CategoryManager $categoryManager, Category $category,LoggerInterface $logger)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
 
         $form = $this->createForm(CategoryType::class,$category);
         $form->handleRequest($request);

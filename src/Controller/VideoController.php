@@ -17,6 +17,7 @@ class VideoController extends AbstractController
      */
     public function index(Request $request, VideoManager $videoManager)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('video/index.html.twig', [
             'videoList' =>  $videoManager->getVideoList(),
         ]);
