@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VideoController!{% endblock %}
+{% block title %} {{ video.title }}{% endblock %}
 
 {% block body %}
     <style>
@@ -9,17 +9,24 @@
     </style>
 
     <div class="example-wrapper">
-        <h1> {{ video.title }} </h1>
-       <p> {{ video.url }} </p>
 
+        <div class="videoShowDesign">
 
-        <br/>
-        <iframe width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        <br/>
-        {{ video.description }}
-        <br/>
-        {{ video.createdAt | date }}
-        <br/>
+            <h3>{{ video.title }}</h3>
+            <span class="infos_video">  By <a href="{{ path("userby",{'firstname':video.user.firstname}) }}"> {{ video.user.firstname }} {{ video.user.lastname }} </a> Created at  {{ video.createdAt | date("m/d/Y") }} </span>
+            <br>
+            <span> Category :<a href="{{ path("categoryById",{'id':video.category.id}) }}"> {{video.category.name}} </a> </span>
+
+            <div class="videoIframe">
+                <iframe width="560" height="315" src="{{ video.url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="videoDescription">
+                <p> {{ video.description }}</p>
+            </div>
+
+        </div>
+
         {{ video.nbViews }}
         <br/>
 

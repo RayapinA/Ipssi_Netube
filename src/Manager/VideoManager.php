@@ -24,7 +24,14 @@ class VideoManager
     }
     public function getVideoListPublished()
     {
-        return $this->videoRepository->FindBy(['published' => 1]);
+        $videosPublished = $this->videoRepository->FindBy(['published' => 1]);
+
+        foreach ($videosPublished as $key => $video){
+            if($this->getYoutubeIdVideo($video) === false){
+                array_splice($videosPublished, $key, 1);
+            }
+        }
+        return $videosPublished;
     }
 
     public function getVideosByUser($id)
@@ -39,6 +46,16 @@ class VideoManager
         }
 
         return $nbVideo;
+    }
+
+    public function getYoutubeIdVideo( Video $video){
+        $array_link = explode("/",$video->getUrl());
+        if(stristr($array_link[2], 'youtube') === FALSE) {
+            return false;
+        }
+
+        $video->setIdYoutube($array_link[4]);
+        return true;
     }
 
     public function save(Video $video)

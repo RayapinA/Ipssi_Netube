@@ -9,12 +9,34 @@
     </style>
 
     <div class="example-wrapper">
-        <h1> {{ category.name }} </h1>
+        <div class="categoryShow">
+            <h1> {{ category.name }} </h1>
+            <br/>
+            <div class="categoryDescription">
+                <p>{{ category.description }}</p>
+            </div>
+             <span class="titre"> Video for this category </span>
+            <br/>
+
+            {% for video in videos %}
+                <div class="videoCategoryShowDesign">
+
+                    <span class="titre_video"> {{ video.title }} </span>
+                    <br>
+
+                    <div class="videoThumbnail">
+                        <img src='http://img.youtube.com/vi/{{ video.idYoutube }}/hqdefault.jpg' height='200px' width='200px'>
+                    </div>
+
+                    <div class="videoLink">
+                        <a href="{{ path("videoById",{'id':video.id}) }}"> Show </a>
+                    </div>
 
 
-        <br/>
-        {{ category.description }}
-        <br/>
+                </div>
+            {% endfor %}
 
+        </div>
     </div>
+
 {% endblock %}

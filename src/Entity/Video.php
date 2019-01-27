@@ -63,6 +63,11 @@ class Video
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $idYoutube;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('@'.strtotime('now'));
@@ -165,6 +170,18 @@ class Video
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getIdYoutube(): ?string
+    {
+        return $this->idYoutube;
+    }
+
+    public function setIdYoutube(?string $idYoutube): self
+    {
+        $this->idYoutube = $idYoutube;
 
         return $this;
     }

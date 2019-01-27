@@ -31,6 +31,7 @@ class CategoryController extends AbstractController
      */
     public function add(Request $request, CategoryManager $categoryManager, LoggerInterface $logger)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $category = new Category();
         $form = $this->createForm(CategoryType::class,$category);
         $form->handleRequest($request);
@@ -53,18 +54,16 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/show/{id}", name="categoryById")
      */
-    public function videoById(Request $request, CategoryManager $categoryManager, Category $category)
+    public function categoryById( CategoryManager $categoryManager, Category $category)
     {
-        $form = $this->createForm(CategoryType::class,$category);
-        $form->handleRequest($request);
 
-        if($form->isSubmitted() &&  $form->isValid()){
-            $categoryManager->save($category);
-        }
+        $videos = $categoryManager->getVideoListOfCategory();
+        $videoOfThisCategory = $videos[$category->getName()];
+
 
         return $this->render('category/show_category.html.twig', [
-            'form' => $form->createView(),
-            "category" => $category
+            "category" => $category,
+            "videos" => $videoOfThisCategory
         ]);
     }
 
@@ -72,8 +71,10 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/edit/{id}", name="editCategoryById")
      */
-    public function editVideoById(Request $request, CategoryManager $categoryManager, Category $category,LoggerInterface $logger)
+    public function editCategoryById(Request $request, CategoryManager $categoryManager, Category $category,LoggerInterface $logger)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $form = $this->createForm(CategoryType::class,$category);
         $form->handleRequest($request);
 

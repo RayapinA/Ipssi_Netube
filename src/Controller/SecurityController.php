@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
         if(!empty($authenticationUtils->getLastAuthenticationError())){
             $this->addFlash(
                 'notice',
-                'Connected'
+                'Erreur de connexion'
             );
         }
 

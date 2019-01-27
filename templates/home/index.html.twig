@@ -5,9 +5,23 @@
 {% block body %}
 <div class="example-wrapper">
     <h1> Bienvenue sur Netube </h1>
-
+        Liste des videos
     {% for video in videos %}
-        <p> {{ video.title }}    <a href="{{ path("videoById",{'id':video.id}) }}"> Show </a> </p>
+        <div class="videoHomeDesign">
+
+            <h3>{{ video.title }}</h3>
+            <span class="infos_video">  By <a href="{{ path("userby",{'firstname':video.user.firstname}) }}"> {{ video.user.firstname }} {{ video.user.lastname }} </a> Created at  {{ video.createdAt | date("m/d/Y") }} </span>
+            <br>
+            <span> Category :<a href="{{ path("categoryById",{'id':video.category.id}) }}"> {{video.category.name}} </a> </span>
+
+             <div class="videoLink">
+                 <a href="{{ path("videoById",{'id':video.id}) }}"> Show </a> </p>
+             </div>
+
+            <div class="videoThumbnail">
+                <img src='http://img.youtube.com/vi/{{ video.idYoutube }}/hqdefault.jpg' height='200px' width='200px'>
+            </div>
+        </div>
     {% endfor %}
 
 </div>

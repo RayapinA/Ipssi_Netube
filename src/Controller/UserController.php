@@ -47,7 +47,18 @@ class UserController extends AbstractController
      */
     public function EditById(Request $request, User $user,UserManager $userManager)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        $emailUser = $user->getEmail();
+        $currentUser = $this->getUser()->getEmail();
+        $currentRoles = $this->getUser()->getRoles();
+
+//TODO BUG a COrriger
+        //if( ($emailUser != $currentUser) === False || in_array("ROLE_ADMIN",$currentRoles) === False) {
+            //Echo " Vous pouvez pas faire cela";
+            //return $this->redirectToRoute("home");
+            //exit();
+        //}
         $form = $this->createForm(UserType::class,$user);
         $form->handleRequest($request);
 

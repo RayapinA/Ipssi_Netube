@@ -27,6 +27,9 @@ class VideoController extends AbstractController
      */
     public function add(Request $request, VideoManager $videoManager, LoggerInterface $logger)
     {
+
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $video = new Video();
         $form = $this->createForm(VideoType::class,$video);
         $form->handleRequest($request);
@@ -69,6 +72,7 @@ class VideoController extends AbstractController
      */
     public function editVideo(Request $request, VideoManager $videoManager,Video $video,  LoggerInterface $logger)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $form = $this->createForm(VideoType::class,$video);
         $form->handleRequest($request);
